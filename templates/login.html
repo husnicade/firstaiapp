@@ -2,10 +2,42 @@
 
 {% block content %}
 <style>
+    :root {
+        --light-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --dark-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --light-card-bg: rgba(255, 255, 255, 0.95);
+        --dark-card-bg: rgba(30, 30, 46, 0.95);
+        --light-text: #2d3748;
+        --dark-text: #e2e8f0;
+        --light-subtitle: #718096;
+        --dark-subtitle: #a0aec0;
+        --light-input-bg: #f7fafc;
+        --dark-input-bg: #2d3748;
+        --light-border: #e2e8f0;
+        --dark-border: #4a5568;
+        --light-placeholder: #a0aec0;
+        --dark-placeholder: #718096;
+        --light-focus-border: #667eea;
+        --dark-focus-border: #81c784;
+        --light-focus-shadow: rgba(102, 126, 234, 0.1);
+        --dark-focus-shadow: rgba(129, 199, 132, 0.1);
+        --light-floating-bg: #f7fafc;
+        --dark-floating-bg: #2d3748;
+        --light-footer: #718096;
+        --dark-footer: #a0aec0;
+        --light-footer-strong: #4a5568;
+        --dark-footer-strong: #e2e8f0;
+    }
+
     body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--light-bg);
         min-height: 100vh;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        transition: background 0.3s ease;
+    }
+
+    body.dark-mode {
+        background: var(--dark-bg);
     }
     
     .login-container {
@@ -17,7 +49,7 @@
     }
     
     .login-card {
-        background: rgba(255, 255, 255, 0.95);
+        background: var(--light-card-bg);
         backdrop-filter: blur(10px);
         border-radius: 20px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -26,6 +58,13 @@
         max-width: 400px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         animation: slideUp 0.6s ease-out;
+        transition: all 0.3s ease;
+    }
+
+    body.dark-mode .login-card {
+        background: var(--dark-card-bg);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     @keyframes slideUp {
@@ -47,18 +86,32 @@
     .login-title {
         font-size: 28px;
         font-weight: 700;
-        color: #2d3748;
+        color: var(--light-text);
         margin-bottom: 8px;
         background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        transition: color 0.3s ease;
+    }
+
+    body.dark-mode .login-title {
+        color: var(--dark-text);
+        background: linear-gradient(135deg, #81c784, #4fc3f7);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
     
     .login-subtitle {
-        color: #718096;
+        color: var(--light-subtitle);
         font-size: 14px;
         margin-bottom: 0;
+        transition: color 0.3s ease;
+    }
+
+    body.dark-mode .login-subtitle {
+        color: var(--dark-subtitle);
     }
     
     .form-group {
@@ -68,32 +121,53 @@
     
     .form-label {
         font-weight: 600;
-        color: #4a5568;
+        color: var(--light-text);
         margin-bottom: 8px;
         font-size: 14px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        transition: color 0.3s ease;
+    }
+
+    body.dark-mode .form-label {
+        color: var(--dark-text);
     }
     
     .form-control {
-        border: 2px solid #e2e8f0;
+        border: 2px solid var(--light-border);
         border-radius: 12px;
         padding: 15px 20px;
         font-size: 16px;
         transition: all 0.3s ease;
-        background: #f7fafc;
-        color: #2d3748;
+        background: var(--light-input-bg);
+        color: var(--light-text);
+    }
+
+    body.dark-mode .form-control {
+        border-color: var(--dark-border);
+        background: var(--dark-input-bg);
+        color: var(--dark-text);
     }
     
     .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: var(--light-focus-border);
+        box-shadow: 0 0 0 3px var(--light-focus-shadow);
         background: white;
         outline: none;
     }
+
+    body.dark-mode .form-control:focus {
+        border-color: var(--dark-focus-border);
+        box-shadow: 0 0 0 3px var(--dark-focus-shadow);
+        background: var(--dark-input-bg);
+    }
     
     .form-control::placeholder {
-        color: #a0aec0;
+        color: var(--light-placeholder);
+    }
+
+    body.dark-mode .form-control::placeholder {
+        color: var(--dark-placeholder);
     }
     
     .login-btn {
@@ -110,10 +184,18 @@
         position: relative;
         overflow: hidden;
     }
+
+    body.dark-mode .login-btn {
+        background: linear-gradient(135deg, #81c784 0%, #4fc3f7 100%);
+    }
     
     .login-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    body.dark-mode .login-btn:hover {
+        box-shadow: 0 10px 25px rgba(129, 199, 132, 0.3);
     }
     
     .login-btn:active {
@@ -183,12 +265,17 @@
         position: absolute;
         left: 20px;
         top: 15px;
-        color: #a0aec0;
+        color: var(--light-placeholder);
         font-size: 16px;
         transition: all 0.3s ease;
         pointer-events: none;
-        background: #f7fafc;
+        background: var(--light-floating-bg);
         padding: 0 5px;
+    }
+
+    body.dark-mode .floating-label {
+        color: var(--dark-placeholder);
+        background: var(--dark-floating-bg);
     }
     
     .form-control:focus + .floating-label,
@@ -196,8 +283,13 @@
         top: -8px;
         left: 15px;
         font-size: 12px;
-        color: #667eea;
+        color: var(--light-focus-border);
         font-weight: 600;
+    }
+
+    body.dark-mode .form-control:focus + .floating-label,
+    body.dark-mode .form-control:not(:placeholder-shown) + .floating-label {
+        color: var(--dark-focus-border);
     }
     
     .alert {
@@ -216,12 +308,67 @@
     .footer-text {
         text-align: center;
         margin-top: 30px;
-        color: #718096;
+        color: var(--light-footer);
         font-size: 12px;
+        transition: color 0.3s ease;
+    }
+
+    body.dark-mode .footer-text {
+        color: var(--dark-footer);
     }
     
     .footer-text strong {
-        color: #4a5568;
+        color: var(--light-footer-strong);
+        transition: color 0.3s ease;
+    }
+
+    body.dark-mode .footer-text strong {
+        color: var(--dark-footer-strong);
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 1000;
+    }
+
+    .theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    body.dark-mode .theme-toggle {
+        background: rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    body.dark-mode .theme-toggle:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+
+    .theme-icon {
+        font-size: 16px;
+        transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover .theme-icon {
+        transform: rotate(180deg);
     }
     
     @media (max-width: 480px) {
@@ -237,6 +384,12 @@
 </style>
 
 <div class="login-container">
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon theme-icon" id="theme-icon"></i>
+        <span id="theme-text">Dark</span>
+    </button>
+    
     <div class="login-card">
         <div class="login-header">
             <h1 class="login-title">Welcome Back</h1>
@@ -281,6 +434,43 @@
 </div>
 
 <script>
+    // Theme Management
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+    }
+
+    function setTheme(theme) {
+        const body = document.body;
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+        
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            themeText.textContent = 'Light';
+        } else {
+            body.classList.remove('dark-mode');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            themeText.textContent = 'Dark';
+        }
+        
+        localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+    }
+
+    // Initialize theme on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        initTheme();
+    });
+
     // Add smooth focus animations
     document.querySelectorAll('.form-control').forEach(input => {
         input.addEventListener('focus', function() {
