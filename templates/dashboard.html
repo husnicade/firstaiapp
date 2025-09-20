@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="fade-in">
+    <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Welcome to your salary deduction management system</p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="stats-card primary">
+                <div class="stats-number">{{ employees_count }}</div>
+                <div class="stats-label">Total Employees</div>
+                <a href="{{ url_for('employees') }}" class="btn btn-primary btn-sm mt-3">
+                    <i class="fas fa-eye me-2"></i>View Details
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="stats-card warning">
+                <div class="stats-number">{{ total_days + total_hours + total_minutes }}</div>
+                <div class="stats-label">Total Absences</div>
+                <div class="mt-2">
+                    <small class="text-muted">
+                        <i class="fas fa-calendar-day me-1"></i>{{ total_days }} days<br>
+                        <i class="fas fa-clock me-1"></i>{{ total_hours }} hours<br>
+                        <i class="fas fa-stopwatch me-1"></i>{{ total_minutes }} minutes
+                    </small>
+                </div>
+                <a href="{{ url_for('absences') }}" class="btn btn-warning btn-sm mt-3">
+                    <i class="fas fa-eye me-2"></i>View Details
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="stats-card success">
+                <div class="stats-number">${{ "%.2f"|format(total_salary) }}</div>
+                <div class="stats-label">Net Salary</div>
+                <div class="mt-2">
+                    <small class="text-muted">
+                        <i class="fas fa-minus-circle me-1"></i>Deduction: ${{ "%.2f"|format(total_deduction) }}
+                    </small>
+                </div>
+                <a href="{{ url_for('reports') }}" class="btn btn-success btn-sm mt-3">
+                    <i class="fas fa-chart-line me-2"></i>View Reports
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="quick-actions">
+                <h5 class="mb-4">
+                    <i class="fas fa-bolt me-2"></i>Quick Actions
+                </h5>
+                <a href="{{ url_for('add_employee') }}" class="action-item">
+                    <i class="fas fa-user-plus"></i>
+                    <div>
+                        <strong>Add New Employee</strong>
+                        <br><small class="text-muted">Register a new employee in the system</small>
+                    </div>
+                </a>
+                <a href="{{ url_for('add_absence') }}" class="action-item">
+                    <i class="fas fa-calendar-plus"></i>
+                    <div>
+                        <strong>Record Absence</strong>
+                        <br><small class="text-muted">Log employee absence or late arrival</small>
+                    </div>
+                </a>
+                <a href="{{ url_for('reports') }}" class="action-item">
+                    <i class="fas fa-file-export"></i>
+                    <div>
+                        <strong>Generate Salary Report</strong>
+                        <br><small class="text-muted">Create detailed salary reports and export to CSV</small>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle me-2"></i>System Status
+                </div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-success rounded-circle p-2 me-3">
+                            <i class="fas fa-check text-white"></i>
+                        </div>
+                        <div>
+                            <strong>System Online</strong>
+                            <br><small class="text-muted">All services running normally</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary rounded-circle p-2 me-3">
+                            <i class="fas fa-database text-white"></i>
+                        </div>
+                        <div>
+                            <strong>Database Connected</strong>
+                            <br><small class="text-muted">SQLite database active</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="bg-warning rounded-circle p-2 me-3">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <div>
+                            <strong>Secure Session</strong>
+                            <br><small class="text-muted">User authenticated</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

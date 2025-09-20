@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="fade-in">
+    <div class="page-header">
+        <h1 class="page-title">Record Absence</h1>
+        <p class="page-subtitle">Log employee absence or late arrival</p>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="employee_id" class="form-label">Employee</label>
+                    <select class="form-select" id="employee_id" name="employee_id" required>
+                        <option value="">Select Employee</option>
+                        {% for employee in employees %}
+                            <option value="{{ employee.id }}">{{ employee.name }} ({{ employee.employee_id }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="day" class="form-label">Day</label>
+                        <select class="form-select" id="day" name="day" required>
+                            {% for i in range(1, 32) %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="days" class="form-label">Absent Days</label>
+                        <input type="number" min="0" class="form-control" id="days" name="days" value="0" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="hours" class="form-label">Absent Hours</label>
+                        <input type="number" min="0" class="form-control" id="hours" name="hours" value="0" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="minutes" class="form-label">Absent Minutes</label>
+                        <input type="number" min="0" max="59" class="form-control" id="minutes" name="minutes" value="0" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="month" class="form-label">Month</label>
+                        <select class="form-select" id="month" name="month" required>
+                            {% for i in range(1, 13) %}
+                                <option value="{{ i }}" {% if i == now.month %}selected{% endif %}>
+                                    {{ i }} - {{ ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][i-1] }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="year" class="form-label">Year</label>
+                        <select class="form-select" id="year" name="year" required>
+                            {% for i in range(now.year-2, now.year+3) %}
+                                <option value="{{ i }}" {% if i == now.year %}selected{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="reason" class="form-label">Reason (Optional)</label>
+                    <textarea class="form-control" id="reason" name="reason" rows="3"></textarea>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('absences') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save Absence</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
