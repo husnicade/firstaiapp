@@ -326,9 +326,9 @@
         color: var(--dark-footer-strong);
     }
 
-    /* Theme Toggle Button */
+    /* Theme Toggle Button for Login Page */
     .theme-toggle {
-        position: absolute;
+        position: fixed;
         top: 20px;
         right: 20px;
         background: rgba(255, 255, 255, 0.2);
@@ -434,7 +434,7 @@
 </div>
 
 <script>
-    // Theme Management
+    // Theme Management (Global functions)
     function initTheme() {
         const savedTheme = localStorage.getItem('theme') || 'light';
         setTheme(savedTheme);
@@ -447,14 +447,22 @@
         
         if (theme === 'dark') {
             body.classList.add('dark-mode');
-            themeIcon.classList.remove('fa-moon');
-            themeIcon.classList.add('fa-sun');
-            themeText.textContent = 'Light';
+            if (themeIcon) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            if (themeText) {
+                themeText.textContent = 'Light';
+            }
         } else {
             body.classList.remove('dark-mode');
-            themeIcon.classList.remove('fa-sun');
-            themeIcon.classList.add('fa-moon');
-            themeText.textContent = 'Dark';
+            if (themeIcon) {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+            if (themeText) {
+                themeText.textContent = 'Dark';
+            }
         }
         
         localStorage.setItem('theme', theme);
