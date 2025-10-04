@@ -3,36 +3,37 @@
 {% block content %}
 <style>
     :root {
-        --light-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --dark-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        --light-card-bg: rgba(255, 255, 255, 0.95);
-        --dark-card-bg: rgba(30, 30, 46, 0.95);
-        --light-text: #2d3748;
-        --dark-text: #e2e8f0;
-        --light-subtitle: #718096;
-        --dark-subtitle: #a0aec0;
-        --light-input-bg: #f7fafc;
-        --dark-input-bg: #2d3748;
-        --light-border: #e2e8f0;
-        --dark-border: #4a5568;
-        --light-placeholder: #a0aec0;
-        --dark-placeholder: #718096;
-        --light-focus-border: #667eea;
-        --dark-focus-border: #81c784;
-        --light-focus-shadow: rgba(102, 126, 234, 0.1);
-        --dark-focus-shadow: rgba(129, 199, 132, 0.1);
-        --light-floating-bg: #f7fafc;
-        --dark-floating-bg: #2d3748;
-        --light-footer: #718096;
-        --dark-footer: #a0aec0;
-        --light-footer-strong: #4a5568;
-        --dark-footer-strong: #e2e8f0;
+        /* Apple Liquid Glass Light Theme */
+        --light-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e0 100%);
+        --dark-bg: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+        --light-card-bg: rgba(255, 255, 255, 0.25);
+        --dark-card-bg: rgba(255, 255, 255, 0.1);
+        --light-text: #1a202c;
+        --dark-text: #ffffff;
+        --light-subtitle: #4a5568;
+        --dark-subtitle: #e2e8f0;
+        --light-input-bg: rgba(255, 255, 255, 0.7);
+        --dark-input-bg: rgba(255, 255, 255, 0.1);
+        --light-border: rgba(255, 255, 255, 0.3);
+        --dark-border: rgba(255, 255, 255, 0.2);
+        --light-placeholder: #718096;
+        --dark-placeholder: #a0aec0;
+        --light-focus-border: #007AFF;
+        --dark-focus-border: #64B5F6;
+        --light-focus-shadow: rgba(0, 122, 255, 0.2);
+        --dark-focus-shadow: rgba(100, 181, 246, 0.3);
+        --light-floating-bg: rgba(255, 255, 255, 0.7);
+        --dark-floating-bg: rgba(255, 255, 255, 0.1);
+        --light-footer: #4a5568;
+        --dark-footer: #e2e8f0;
+        --light-footer-strong: #1a202c;
+        --dark-footer-strong: #ffffff;
     }
 
     body {
-        background: #f3f5f9;
+        background: var(--light-bg);
         min-height: 100vh;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         transition: background 0.3s ease;
     }
 
@@ -50,21 +51,36 @@
     
     .login-card {
         background: var(--light-card-bg);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        padding: 40px;
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        padding: 48px;
         width: 100%;
-        max-width: 400px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        max-width: 420px;
+        border: 1px solid var(--light-border);
         animation: slideUp 0.6s ease-out;
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .login-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        border-radius: 24px;
+        pointer-events: none;
     }
 
     body.dark-mode .login-card {
         background: var(--dark-card-bg);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        border: 1px solid var(--dark-border);
     }
     
     @keyframes slideUp {
@@ -134,13 +150,15 @@
     }
     
     .form-control {
-        border: 2px solid var(--light-border);
-        border-radius: 12px;
-        padding: 15px 48px 15px 48px;
-        font-size: 16px;
+        border: 1px solid var(--light-border);
+        border-radius: 16px;
+        padding: 18px 48px 18px 48px;
+        font-size: 17px;
         transition: all 0.3s ease;
         background: var(--light-input-bg);
         color: var(--light-text);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
     }
 
     body.dark-mode .form-control {
@@ -151,15 +169,15 @@
     
     .form-control:focus {
         border-color: var(--light-focus-border);
-        box-shadow: 0 0 0 3px var(--light-focus-shadow);
-        background: white;
+        box-shadow: 0 0 0 4px var(--light-focus-shadow);
+        background: rgba(255, 255, 255, 0.9);
         outline: none;
     }
 
     body.dark-mode .form-control:focus {
         border-color: var(--dark-focus-border);
-        box-shadow: 0 0 0 3px var(--dark-focus-shadow);
-        background: var(--dark-input-bg);
+        box-shadow: 0 0 0 4px var(--dark-focus-shadow);
+        background: rgba(255, 255, 255, 0.15);
     }
     
     .form-control::placeholder {
@@ -172,30 +190,32 @@
     
     .login-btn {
         width: 100%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
         border: none;
-        border-radius: 12px;
-        padding: 15px;
-        font-size: 16px;
+        border-radius: 16px;
+        padding: 18px;
+        font-size: 17px;
         font-weight: 600;
         color: white;
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
     }
 
     body.dark-mode .login-btn {
-        background: linear-gradient(135deg, #81c784 0%, #4fc3f7 100%);
+        background: linear-gradient(135deg, #64B5F6 0%, #42A5F5 100%);
+        box-shadow: 0 4px 16px rgba(100, 181, 246, 0.4);
     }
     
     .login-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 8px 24px rgba(0, 122, 255, 0.4);
     }
 
     body.dark-mode .login-btn:hover {
-        box-shadow: 0 10px 25px rgba(129, 199, 132, 0.3);
+        box-shadow: 0 8px 24px rgba(100, 181, 246, 0.5);
     }
     
     .login-btn:active {
@@ -330,22 +350,24 @@
     /* Theme Toggle Button for Login Page */
     .theme-toggle {
         position: fixed;
-        top: 20px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        top: 24px;
+        right: 24px;
+        background: rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.18);
         border-radius: 50px;
-        padding: 10px 15px;
+        padding: 12px 18px;
         cursor: pointer;
         transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        color: white;
-        font-size: 14px;
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        backdrop-filter: blur(20px) saturate(180%);
+        color: var(--light-text);
+        font-size: 15px;
         font-weight: 600;
         display: flex;
         align-items: center;
         gap: 8px;
         z-index: 1000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
 
     .theme-toggle:hover {
@@ -355,12 +377,15 @@
     }
 
     body.dark-mode .theme-toggle {
-        background: rgba(0, 0, 0, 0.3);
-        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.1);
+        color: var(--dark-text);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     }
 
     body.dark-mode .theme-toggle:hover {
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
 
     .theme-icon {
@@ -418,7 +443,7 @@
                 <input type="password" class="form-control" id="password" name="password" placeholder=" " required>
                 <label for="password" class="floating-label">Password</label>
                 <i class="fas fa-lock input-icon"></i>
-                <button type="button" class="password-toggle" onclick="togglePassword()">
+                <button type="button" class="password-toggle" onclick="togglePassword()" title="Toggle password visibility">
                     <i class="fas fa-eye" id="password-toggle-icon"></i>
                 </button>
             </div>
